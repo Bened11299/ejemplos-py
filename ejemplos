@@ -1,0 +1,95 @@
+from datetime import date
+from datetime import datetime
+
+
+class Producto():
+    def __init__(self, nombre, precio, codigo, fecha_vencimiento , stock):
+        self.nombre = nombre
+        self.precio = precio
+        self.codigo = codigo
+        self.fecha = fecha_vencimiento
+        self.year = int(fecha_vencimiento[6:10])
+        self.month = int(fecha_vencimiento[3:5])
+        self.day = int(fecha_vencimiento[0:2])
+        self.stock = stock
+
+    def carrito(self):
+        if self.stock > 0:
+            stock=self.stock - 1
+            print("añadido al carrito :v")
+        else:
+            print("Producto no disponible :C ")
+
+    def vencido(self):
+        print(self.day," ",self.month, " ",self.year)
+        today = datetime.now()
+        if today.day <= self.day and today.month <= self.month and today.year <= self.year:
+            print(" en fecha puede comprarlo :)")
+        else:
+            print("no lo compre :/, producto en espera de ser retirado de la venta")
+
+    def str(self):
+        print("nombre: {}, codigo: {}, precio: {}, fecha de vencimiento: {} , stock: {}".format(self.nombre, self.codigo,
+                                                                                       self.precio, self.fecha, self.stock))
+
+
+class Ventas():
+
+    def __init__(self, codigo, cliente, antiguedad, total):
+        self.codigo = codigo
+        self.cliente = cliente
+        self.antiguedad = antiguedad
+        self.total = total
+
+    def vender(self):
+        print("gracias por su compra :D")
+
+    def descuento(self):
+        if self.total >= 100:
+            total = self.total - (self.total * 100) / 10
+            print("Tendra un descuento del 10% e.e ")
+        else:
+            print("No accede al descuento :C ")
+
+    def cliente_nuevo(self):
+        if self.antiguedad ==0:
+            print("Cómo le va? me enseña su tarjeta porfavor")
+        else:
+            print("Bienvenido! quiere obtener una tarjeta ketal? Y/N")
+            ans=input()
+            if ans == "Y" :
+                print("Le entregaremos su tarjeta en un momento")
+            else:
+                print("Puede adquirirla cuando usted guste :) ")
+
+    def str(self):
+        print("cliente: {}, codigo: {}, atiguedad: {}, total: {}".format(self.cliente, self.codigo,self.antiguedad, self.total))
+
+print("<<<<<<<<<<< PRODUCTOS >>>>>>>>>>>>")
+produ = Producto("leche", 6, "12ab", "10.12.2020", 0)
+prod2 = Producto("maruchan", 6, "13ab", "16.04.2020", 5)
+prod3= Producto("Pan", 10, "21cc", "15.08.2020", 1)
+print("el producto 1")
+produ.str()
+produ.vencido()
+produ.carrito()
+print("el producto 2")
+prod2.str()
+prod2.vencido()
+print("el producto 3")
+prod3.str()
+prod3.vencido()
+prod3.carrito()
+
+print("<<<<<<<<<<< VENTAS >>>>>>>>>>>>")
+venta = Ventas("Pepito", "xyz1", 3, 50)
+venta2 = Ventas("Andrea", "abc2", 0, 500)
+print("*** Venta 1:")
+venta.str()
+venta.cliente_nuevo()
+venta.descuento()
+
+print("*** Venta 2:")
+venta2.str()
+venta2.cliente_nuevo()
+venta2.descuento()
